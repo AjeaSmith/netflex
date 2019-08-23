@@ -32,7 +32,6 @@ const MovieDetails = ({ match }) => {
     }
   });
   const classes = useStyles();
-  console.log(movie);
   return (
     <React.Fragment>
       <Header />

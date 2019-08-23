@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
+import { StateContext } from "../StateContext";
+import axios from "axios";
 const useStyles = makeStyles(theme => ({
   search: {
     position: "relative",
@@ -42,16 +44,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const SearchComponent = () => {
-  let [text, setText] = useState("");
-  let [state, setState] = useContext("");
+  let [state, setState] = useContext(StateContext);
   const classes = useStyles();
   const onChange = e => {
-    setText((text = e.target.value));
+    setState({ ...state, text: e.target.value });
   };
   const onSubmit = e => {
     e.preventDefault();
-    console.log(text);
+    axios
+      .get(
+        `https://api.themoviedb.org/3/search/movie?api_key=51909af9c93f13c40080f6829386de2b&language=en-US&query=${state.text}`
+      )
+      .then(resp => {
+        setState({ ...state, movies: resp.data.results });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
+  console.log(state.movies);
   return (
     <React.Fragment>
       <form onSubmit={onSubmit}>
@@ -60,7 +71,7 @@ const SearchComponent = () => {
             <SearchIcon />
           </div>
           <InputBase
-            value={text}
+            value={state.text}
             onChange={onChange}
             placeholder="Search…"
             classes={{
