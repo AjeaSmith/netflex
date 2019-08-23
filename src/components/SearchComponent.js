@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
@@ -43,6 +43,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const SearchComponent = () => {
   let [text, setText] = useState("");
+  let [state, setState] = useContext("");
   const classes = useStyles();
   const onChange = e => {
     setText((text = e.target.value));
@@ -59,7 +60,6 @@ const SearchComponent = () => {
             <SearchIcon />
           </div>
           <InputBase
-            // style={{ width: "300px" }}
             value={text}
             onChange={onChange}
             placeholder="Search…"
@@ -71,20 +71,6 @@ const SearchComponent = () => {
           />
         </div>
       </form>
-      {/* <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          <SearchIcon />
-        </div>
-        <InputBase
-          onChange={search}
-          placeholder="Search…"
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput
-          }}
-          inputProps={{ "aria-label": "search" }}
-        />
-      </div> */}
     </React.Fragment>
   );
 };

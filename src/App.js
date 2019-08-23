@@ -2,17 +2,18 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
-import Details from "./pages/Details";
+import MovieDetails from "./components/MovieDetails";
+import { StateProvider } from "./StateContext";
 function App() {
   return (
-    <React.Fragment>
+    <StateProvider>
       <Router>
         <Switch>
-          <Route to="/" exact component={Home} />
-          <Route to="/moviedetails/:id" component={Details} />
+          <Route path="/" exact component={Home} />
+          <Route path="/movie/:id" component={MovieDetails} />
         </Switch>
       </Router>
-    </React.Fragment>
+    </StateProvider>
   );
 }
 

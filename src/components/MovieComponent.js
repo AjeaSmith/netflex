@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import MovieItemComponent from "./MovieItemComponent";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -9,13 +9,14 @@ import { StateContext } from "../StateContext";
 import axios from "axios";
 
 const MovieComponent = () => {
-  const [state, setState] = useContext(StateContext);
+  let [state, setState] = useContext(StateContext);
+  let [menu, setMenu] = useState();
 
   const handleClick = event => {
-    setState({ ...state, menu: event.currentTarget });
+    setMenu((menu = event.currentTarget));
   };
   const handleClose = () => {
-    setState({ ...state, menu: null });
+    setMenu((menu = null));
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -52,16 +53,16 @@ const MovieComponent = () => {
 
             <Menu
               id="simple-menu"
-              anchorEl={state.menu}
+              anchorEl={menu}
               keepMounted
-              open={Boolean(state.menu)}
+              open={Boolean(menu)}
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>Popularity</MenuItem>
             </Menu>
           </div>
         </section>
-        <MovieItemComponent/>
+        <MovieItemComponent />
       </div>
     </React.Fragment>
   );

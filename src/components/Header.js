@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchComponent from "./SearchComponent";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,7 +33,9 @@ const Header = () => {
             noWrap
             style={{ color: "red" }}
           >
-            Netflex
+            <Link style={{ color: "red", textDecoration: "none" }} to="/">
+              Netflex
+            </Link>
           </Typography>
           <SearchComponent />
         </Toolbar>

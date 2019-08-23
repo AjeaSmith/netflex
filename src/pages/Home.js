@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../components/Header";
 import MovieComponent from "../components/MovieComponent";
+// import { StateProvider } from "../StateContext";
 const Home = () => {
-  const [state, setState] = useState({
-    movies: null,
-    isLoading: false
-  });
   return (
     <React.Fragment>
       <Header />
