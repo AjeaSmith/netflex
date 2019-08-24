@@ -8,14 +8,7 @@ const Home = () => {
   return (
     <React.Fragment>
       <Header />
-      {state.isSearching ? (
-        <div>
-          <Header />
-          <SearchMovieComponent />
-        </div>
-      ) : (
-        <MovieComponent />
-      )}
+      {state.isSearching ? <SearchMovieComponent /> : <MovieComponent />}
     </React.Fragment>
   );
 };

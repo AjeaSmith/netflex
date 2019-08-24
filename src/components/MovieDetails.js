@@ -38,7 +38,7 @@ const MovieDetails = ({ match }) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Header path={state.path} />
+      <Header />
       <section
         style={{
           display: "flex",
