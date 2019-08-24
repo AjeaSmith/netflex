@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-const Header = () => {
+const Header = ({ path }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -33,11 +33,11 @@ const Header = () => {
             noWrap
             style={{ color: "red" }}
           >
-            <Link style={{ color: "red", textDecoration: "none" }} to="/">
+            <Link to="/" style={{ color: "red", textDecoration: "none" }}>
               Netflex
             </Link>
           </Typography>
-          <SearchComponent />
+          <SearchComponent path={path} />
         </Toolbar>
       </AppBar>
     </div>

@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import Button from "@material-ui/core/Button";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Header from "./Header";
 import axios from "axios";
+import { StateContext } from "../StateContext";
 
 const MovieDetails = ({ match }) => {
   const { id } = match.params;
+  let [state, setState] = useContext(StateContext);
   let [movie, setMovie] = useState([]);
   useEffect(() => {
     const fetchMovie = async () => {
@@ -18,11 +21,12 @@ const MovieDetails = ({ match }) => {
       );
       setMovie((movie = result.data));
     };
+    setState({ ...state, path: match.path });
     fetchMovie();
   }, []);
   const useStyles = makeStyles({
     card: {
-      width: 700,
+      maxWidth: 650,
       height: "100%",
       backgroundColor: "black",
       color: "white"
@@ -34,14 +38,19 @@ const MovieDetails = ({ match }) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Header />
+      <Header path={state.path} />
       <section
         style={{
           display: "flex",
           justifyContent: "center",
-          marginBottom: "15px"
+          alignItems: "center",
+          marginBottom: "15px",
+          flexDirection: "column"
         }}
       >
+        <Button href="/" style={{ width: "100px", marginBottom: "15px" }}>
+          Back
+        </Button>
         <Card className={classes.card}>
           <CardActionArea>
             <CardMedia

@@ -7,11 +7,11 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { Typography } from "@material-ui/core";
 import { StateContext } from "../StateContext";
 import axios from "axios";
+import SearchMovieComponent from "./SearchMovieComponent";
 
 const MovieComponent = () => {
   let [state, setState] = useContext(StateContext);
   let [menu, setMenu] = useState();
-
   const handleClick = event => {
     setMenu((menu = event.currentTarget));
   };
@@ -78,7 +78,7 @@ const MovieComponent = () => {
             </Menu>
           </div>
         </section>
-        <MovieItemComponent />
+        {state.isSearching ? <SearchMovieComponent /> : <MovieItemComponent />}
       </div>
     </React.Fragment>
   );
