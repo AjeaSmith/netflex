@@ -78,7 +78,7 @@ const SearchComponent = props => {
             ...state,
             movies: resp.data.results,
             searchTitle: state.text,
-            isSearching: true,
+            // isSearching: true,
             text: ""
           });
           props.history.push("/moviesearch");

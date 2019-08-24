@@ -56,6 +56,7 @@ const SearchMovieComponent = () => {
   };
   return (
     <React.Fragment>
+      <Header />
       <div style={{ padding: "0 24px" }}>
         <section
           style={{
