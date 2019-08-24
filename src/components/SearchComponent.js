@@ -47,12 +47,12 @@ const useStyles = makeStyles(theme => ({
 const SearchComponent = props => {
   let [state, setState] = useContext(StateContext);
   const classes = useStyles();
-  console.log(props);
   const onChange = e => {
     setState({ ...state, text: e.target.value });
   };
   const onSubmit = e => {
     e.preventDefault();
+    console.log(state.searchTitle);
     if (props.match.path === "/") {
       axios
         .get(
@@ -62,8 +62,11 @@ const SearchComponent = props => {
           setState({
             ...state,
             movies: resp.data.results,
+            searchTitle: state.text,
+            isSearching: true,
             text: ""
           });
+          props.history.push("/moviesearch");
         })
         .catch(err => {
           console.log(err);
@@ -77,17 +80,16 @@ const SearchComponent = props => {
           setState({
             ...state,
             movies: resp.data.results,
-            text: "",
-            isSearching: true
+            searchTitle: state.text,
+            isSearching: true,
+            text: ""
           });
           props.history.push("/moviesearch");
         })
         .catch(err => {
           console.log(err);
         });
-      // props.history.push("/", state.movies);
     }
-    // props.history.goBack();
   };
   return (
     <React.Fragment>

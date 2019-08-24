@@ -37,7 +37,7 @@ const Header = ({ path }) => {
               Netflex
             </Link>
           </Typography>
-          <SearchComponent path={path} />
+          <SearchComponent />
         </Toolbar>
       </AppBar>
     </div>

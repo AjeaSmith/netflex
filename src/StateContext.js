@@ -4,7 +4,8 @@ export const StateProvider = ({ children }) => {
   const [state, setState] = useState({
     movies: [],
     text: "",
-    isSearching: false
+    isSearching: false,
+    searchTitle: ""
   });
   return (
     <StateContext.Provider value={[state, setState]}>
