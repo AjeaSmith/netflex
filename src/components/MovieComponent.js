@@ -17,6 +17,22 @@ const MovieComponent = () => {
   };
   const handleClose = () => {
     setMenu((menu = null));
+    const fetchPopular = () => {
+      axios
+        .get(
+          "https://api.themoviedb.org/3/movie/popular?api_key=51909af9c93f13c40080f6829386de2b&language=en-US&page=1"
+        )
+        .then(resp => {
+          setState({ ...state, movies: resp.data.results });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+    fetchPopular();
+  };
+  const handleMenu = () => {
+    setMenu((menu = null));
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +72,7 @@ const MovieComponent = () => {
               anchorEl={menu}
               keepMounted
               open={Boolean(menu)}
-              onClose={handleClose}
+              onClose={handleMenu}
             >
               <MenuItem onClick={handleClose}>Popularity</MenuItem>
             </Menu>

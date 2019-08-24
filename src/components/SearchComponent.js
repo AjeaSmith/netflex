@@ -56,7 +56,7 @@ const SearchComponent = () => {
         `https://api.themoviedb.org/3/search/movie?api_key=51909af9c93f13c40080f6829386de2b&language=en-US&query=${state.text}`
       )
       .then(resp => {
-        setState({ ...state, movies: resp.data.results });
+        setState({ ...state, movies: resp.data.results, text: "" });
       })
       .catch(err => {
         console.log(err);
