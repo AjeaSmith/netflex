@@ -68,7 +68,7 @@ const SearchComponent = props => {
           props.history.push("/moviesearch");
         })
         .catch(err => {
-          console.log(err);
+          return err;
         });
     } else {
       axios
@@ -80,13 +80,12 @@ const SearchComponent = props => {
             ...state,
             movies: resp.data.results,
             searchTitle: state.text,
-            // isSearching: true,
             text: ""
           });
           props.history.push("/moviesearch");
         })
         .catch(err => {
-          console.log(err);
+          return err;
         });
     }
   };
