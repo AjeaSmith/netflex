@@ -52,6 +52,7 @@ const SearchComponent = props => {
   };
   const onSubmit = e => {
     e.preventDefault();
+    setState({ ...state, isLodaing: true });
     if (props.match.path === "/") {
       axios
         .get(
@@ -64,6 +65,7 @@ const SearchComponent = props => {
             searchTitle: state.text,
             text: ""
           });
+          props.history.push("/moviesearch");
         })
         .catch(err => {
           console.log(err);

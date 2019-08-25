@@ -5,7 +5,8 @@ export const StateProvider = ({ children }) => {
     movies: [],
     text: "",
     isSearching: false,
-    searchTitle: ""
+    searchTitle: "",
+    isLoading: true
   });
   return (
     <StateContext.Provider value={[state, setState]}>

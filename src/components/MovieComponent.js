@@ -9,6 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { Typography } from "@material-ui/core";
 import { StateContext } from "../StateContext";
@@ -53,11 +54,13 @@ const MovieComponent = () => {
     setMenu((menu = null));
   };
   useEffect(() => {
+    setState({ ...state, isLoading: true });
     const fetchData = async () => {
+      // setState({ ...state, isLoading: true });
       const result = await axios(
         "https://api.themoviedb.org/3/movie/now_playing?api_key=51909af9c93f13c40080f6829386de2b&language=en-US&page=1"
       );
-      setState({ ...state, movies: result.data.results });
+      setState({ ...state, isLoading: false, movies: result.data.results });
     };
     fetchData();
   }, []);
@@ -96,41 +99,51 @@ const MovieComponent = () => {
             </Menu>
           </div>
         </section>
-        <section style={{ display: "flex", flexWrap: "wrap" }}>
-          {state.movies.map(movie => {
-            return (
-              <Card className={classes.card} key={movie.id}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {movie.title}
-                    </Typography>
-                    <Typography variant="body1" component="p">
-                      {movie.release_date}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button>
-                    <Link
-                      style={{
-                        color: "#b71c1c",
-                        textDecoration: "none"
-                      }}
-                      to={`/movie/${movie.id}`}
-                    >
-                      View Movie
-                    </Link>
-                  </Button>
-                </CardActions>
-              </Card>
-            );
-          })}
+        <section
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center"
+          }}
+        >
+          {state.isLoading ? (
+            <CircularProgress style={{ margin: "90px 400px" }} />
+          ) : (
+            state.movies.map(movie => {
+              return (
+                <Card className={classes.card} key={movie.id}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
+                      title="Contemplative Reptile"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {movie.title}
+                      </Typography>
+                      <Typography variant="body1" component="p">
+                        {movie.release_date}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button>
+                      <Link
+                        style={{
+                          color: "#b71c1c",
+                          textDecoration: "none"
+                        }}
+                        to={`/movie/${movie.id}`}
+                      >
+                        View Movie
+                      </Link>
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+            })
+          )}
         </section>
       </div>
     </React.Fragment>
