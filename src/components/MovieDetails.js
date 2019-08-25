@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -8,11 +8,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Header from "./Header";
 import axios from "axios";
-import { StateContext } from "../StateContext";
 
 const MovieDetails = ({ match }) => {
   const { id } = match.params;
-  let [state, setState] = useContext(StateContext);
   let [movie, setMovie] = useState([]);
   useEffect(() => {
     const fetchMovie = async () => {
@@ -21,7 +19,6 @@ const MovieDetails = ({ match }) => {
       );
       setMovie((movie = result.data));
     };
-    setState({ ...state, path: match.path });
     fetchMovie();
   }, []);
   const useStyles = makeStyles({

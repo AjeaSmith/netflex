@@ -9,9 +9,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { StateContext } from "../StateContext";
 import axios from "axios";
 const useStyles = makeStyles({
@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 const MovieComponent = () => {
   let [state, setState] = useContext(StateContext);
   let [menu, setMenu] = useState();
+  let [loading, setLoading] = useState(true);
   const classes = useStyles();
   const handleClick = event => {
     setMenu((menu = event.currentTarget));
@@ -54,13 +55,15 @@ const MovieComponent = () => {
     setMenu((menu = null));
   };
   useEffect(() => {
-    setState({ ...state, isLoading: true });
+    setLoading(true);
+    setInterval(() => {
+      setLoading(false);
+    }, 2000);
     const fetchData = async () => {
-      // setState({ ...state, isLoading: true });
       const result = await axios(
         "https://api.themoviedb.org/3/movie/now_playing?api_key=51909af9c93f13c40080f6829386de2b&language=en-US&page=1"
       );
-      setState({ ...state, isLoading: false, movies: result.data.results });
+      setState({ ...state, movies: result.data.results });
     };
     fetchData();
   }, []);
@@ -99,6 +102,7 @@ const MovieComponent = () => {
             </Menu>
           </div>
         </section>
+
         <section
           style={{
             display: "flex",
@@ -106,41 +110,45 @@ const MovieComponent = () => {
             alignItems: "center"
           }}
         >
-          {state.isLoading ? (
-            <CircularProgress style={{ margin: "90px 400px" }} />
+          {loading ? (
+            <CircularProgress
+              style={{ textAlign: "center", padding: "100px 520px" }}
+            />
           ) : (
             state.movies.map(movie => {
               return (
-                <Card className={classes.card} key={movie.id}>
-                  <CardActionArea>
-                    <CardMedia
-                      className={classes.media}
-                      image={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
-                      title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {movie.title}
-                      </Typography>
-                      <Typography variant="body1" component="p">
-                        {movie.release_date}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button>
-                      <Link
-                        style={{
-                          color: "#b71c1c",
-                          textDecoration: "none"
-                        }}
-                        to={`/movie/${movie.id}`}
-                      >
-                        View Movie
-                      </Link>
-                    </Button>
-                  </CardActions>
-                </Card>
+                <React.Fragment key={movie.id}>
+                  <Card className={classes.card}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {movie.title}
+                        </Typography>
+                        <Typography variant="body1" component="p">
+                          {movie.release_date}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <Button>
+                        <Link
+                          style={{
+                            color: "#b71c1c",
+                            textDecoration: "none"
+                          }}
+                          to={`/movie/${movie.id}`}
+                        >
+                          View Movie
+                        </Link>
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </React.Fragment>
               );
             })
           )}
