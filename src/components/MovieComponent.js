@@ -31,6 +31,7 @@ const MovieComponent = () => {
   let [state, setState] = useContext(StateContext);
   let [menu, setMenu] = useState();
   let [loading, setLoading] = useState(true);
+  let [header, setHeader] = useState("");
   const classes = useStyles();
   const handleClick = event => {
     setMenu((menu = event.currentTarget));
@@ -44,6 +45,7 @@ const MovieComponent = () => {
         )
         .then(resp => {
           setState({ ...state, movies: resp.data.results });
+          setHeader("Showing Popular Movies");
         })
         .catch(err => {
           console.log(err);
@@ -79,7 +81,11 @@ const MovieComponent = () => {
           }}
         >
           <div>
-            <Typography variant="h4">Now Playing</Typography>
+            {!header ? (
+              <Typography variant="h4">Now Playing</Typography>
+            ) : (
+              <Typography variant="h4">{header}</Typography>
+            )}
           </div>
           <div>
             <Button

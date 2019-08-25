@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchComponent from "./SearchComponent";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,13 +18,16 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-const Header = ({ path }) => {
+const Header = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <AppBar
         position="static"
-        style={{ backgroundColor: "black", marginBottom: "50px" }}
+        style={{
+          backgroundColor: "black",
+          marginBottom: "50px"
+        }}
       >
         <Toolbar>
           <Typography
@@ -33,9 +36,10 @@ const Header = ({ path }) => {
             noWrap
             style={{ color: "red" }}
           >
-            <Link to="/" style={{ color: "red", textDecoration: "none" }}>
+            <a href="/" style={{ color: "red", textDecoration: "none" }}>
+              {" "}
               Netflex
-            </Link>
+            </a>
           </Typography>
           <SearchComponent />
         </Toolbar>

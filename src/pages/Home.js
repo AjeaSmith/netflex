@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import MovieComponent from "../components/MovieComponent";
 import SearchMovieComponent from "../components/SearchMovieComponent";
 import { StateContext } from "../StateContext";
+import "../App.css";
 const Home = () => {
   const [state] = useContext(StateContext);
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 const SearchMovieComponent = () => {
   let [state, setState] = useContext(StateContext);
   let [menu, setMenu] = useState();
-  console.log("title is", state.searchTitle);
   const classes = useStyles();
   const handleClick = event => {
     setMenu((menu = event.currentTarget));
@@ -43,10 +42,14 @@ const SearchMovieComponent = () => {
           "https://api.themoviedb.org/3/movie/popular?api_key=51909af9c93f13c40080f6829386de2b&language=en-US&page=1"
         )
         .then(resp => {
-          setState({ ...state, movies: resp.data.results });
+          setState({
+            ...state,
+            movies: resp.data.results,
+            searchTitle: "Popular Movies"
+          });
         })
         .catch(err => {
-          console.log(err);
+          return err;
         });
     };
     fetchPopular();
@@ -67,9 +70,15 @@ const SearchMovieComponent = () => {
           }}
         >
           <div>
-            <Typography variant="h4">
-              Results for "{state.searchTitle}"
-            </Typography>
+            {!state.searchTitle ? (
+              <Typography variant="h4">
+                Showing ({state.movies.length})
+              </Typography>
+            ) : (
+              <Typography variant="h4">
+                Showing ({state.movies.length}) for {state.searchTitle}
+              </Typography>
+            )}
           </div>
           <div>
             <Button
@@ -92,6 +101,19 @@ const SearchMovieComponent = () => {
             </Menu>
           </div>
         </section>
+        {state.movies.length === 0 ? (
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "1.5em",
+              padding: "100px 0"
+            }}
+          >
+            <p>Search to display movies...</p>
+          </div>
+        ) : (
+          ""
+        )}
         <section style={{ display: "flex", flexWrap: "wrap" }}>
           {state.movies.map(movie => {
             return (
