@@ -1,4 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Netflex Web App
+
+Netflex app is built using: React, React-Router-Dom, Material UI React, TMDB Movie Api, Axios, Netlify for deployment
+
+User Stories: 
+
+1. users can view now playing movies
+
+2. users can filter for movies 
+
+3. users can search for movies from homepage and details page
+
+4. users can view a single movie
 
 ## Available Scripts
 
