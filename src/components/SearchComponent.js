@@ -97,6 +97,7 @@ const SearchComponent = props => {
             <SearchIcon />
           </div>
           <InputBase
+            type="text"
             value={state.text}
             onChange={onChange}
             placeholder="Search…"
