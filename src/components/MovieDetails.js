@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Header from "./Header";
 import axios from "axios";
+import ErrorBoundary from "./ErrorBoundary";
 
 const MovieDetails = ({ match }) => {
   const { id } = match.params;
@@ -35,7 +36,9 @@ const MovieDetails = ({ match }) => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Header />
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
       <section
         style={{
           display: "flex",
